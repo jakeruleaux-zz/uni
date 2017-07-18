@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>University Registrar</title>
+    </head>
+    <body>
+        <h1>Students</h1>
+
+    {% if students is not empty %}
+      <p>Here are all your students:</p>
+      <ul>
+          {% for student in students %}
+                  <li><a href="/students/{{ student.getId }}">{{ student.getName }}</a></li>
+              {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form action='/students' method='post'>
+      <label for='name'>Student name</label>
+      <input id='name' name='name' type='text' required>
+      <label for='enroll_date'>Student Enrollment Date</label>
+      <input id='enroll_date' name='enroll_date' type='text' required>
+
+      <button type='submit'>Add student</button>
+    </form>
+
+    <form action='/delete_students' method='post'>
+        <button type='submit'>Clear</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+    </body>
+</html>

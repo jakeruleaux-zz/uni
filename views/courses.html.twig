@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+      <h1>Courses</h1>
+
+          {% if courses is not empty %}
+              <p>Here are all your courses:</p>
+              <ul>
+                  {% for course in courses %}
+                  <li><a href="/courses/{{ course.getId }}">{{ course.getCourseName }}</a></li>
+              {% endfor %}
+              </ul>
+          {% endif %}
+
+          <form action='/courses' method='post'>
+              <label for='course_name'>Course Name</label>
+              <input id='course_name' name='course_name' type='text' required>
+              <label for='code'>Course Code</label>
+             <input id='code' name='code' type='text' required>
+
+              <button type='submit'>Add course</button>
+          </form>
+          <form action='/delete_courses' method='post'>
+              <button type='submit' class='btn-info'>Clear</button>
+          </form>
+
+          <p><a href='/'>Home</a></p>
+  </body>
+</html>

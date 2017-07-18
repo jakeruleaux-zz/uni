@@ -91,7 +91,7 @@
 
         function update($new_course_name)
         {
-            $executed = $GLOBALS['DB']->exec("UPDATE courses SET course_name = '{$new_course_name}' WHERE id = {$this->getID()};");
+            $executed = $GLOBALS['DB']->exec("UPDATE courses SET course_name = '{$new_course_name}' WHERE id = {$this->getId()};");
             if ($executed) {
              $this->setCourseName($new_course_name);
              return true;
