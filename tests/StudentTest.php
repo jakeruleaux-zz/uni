@@ -12,7 +12,7 @@
 
     class StudentTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown()
+        protected function tearDown() 
         {
           Student::deleteAll();
         //   Course::deleteAll();
