@@ -39,5 +39,35 @@
             //Assert
             $this->assertEquals($enroll_date, $result);
         }
+
+        function testSave()
+        {
+            //Arrange
+            $name = "Nathan";
+            $enroll_date = "7-24-2089";
+            $test_student = new Student($name, $enroll_date);
+
+            //Act
+            $executed = $test_student->save();
+
+            //Assert
+            $this->assertTrue($executed, "Student not successfully saved to database");
+        }
+
+        function testGetId()
+        {
+            //Arrange
+            $name = "Nathan";
+            $enroll_date = "7-24-2089";
+            $test_student = new Student($name, $enroll_date);
+            $test_student->save();
+
+            //Act
+            $result = $test_student->getId();
+
+            //Assert
+            $this->assertEquals(true, is_numeric($result));
+
+        }
     }
 ?>

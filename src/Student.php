@@ -36,5 +36,16 @@
         {
             return $this->id;
         }
+
+        function save()
+        {
+            $executed = $GLOBALS['DB']->exec("INSERT INTO students (name, enroll_date) VALUES ('{$this->getName()}', '{$this->getEnrollDate()}');");
+            if ($executed) {
+                $this->id = $GLOBALS['DB']->lastInsertId();
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 ?>
