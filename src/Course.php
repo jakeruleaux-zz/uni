@@ -73,6 +73,45 @@
             }
         }
 
+        static function find($search_id)
+        {
+            $returned_courses = $GLOBALS['DB']->prepare("SELECT * FROM courses WHERE id = :id");
+            $returned_courses->bindParam(':id', $search_id, PDO::PARAM_STR);
+            $returned_courses->execute();
+            foreach ($returned_courses as $course) {
+              $course_name = $course['course_name'];
+              $course_code = $course['code'];
+              $id = $course['id'];
+              if ($id == $search_id) {
+                  $found_course = new Course($course_name, $course_code, $id);
+              }
+            }
+            return $found_course;
+        }
 
+        function update($new_course_name)
+        {
+            $executed = $GLOBALS['DB']->exec("UPDATE courses SET course_name = '{$new_course_name}' WHERE id = {$this->getID()};");
+            if ($executed) {
+             $this->setCourseName($new_course_name);
+             return true;
+            } else {
+             return false;
+            }
+        }
+
+        function delete()
+        {
+            $executed = $GLOBALS['DB']->exec("DELETE FROM courses WHERE id = {$this->getId()};");
+            if (!$executed) {
+                return false;
+            }
+            $executed = $GLOBALS['DB']->exec("DELETE FROM courses_students WHERE course_id = {$this->getId()};");
+            if (!$executed) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
  ?>
