@@ -18,7 +18,7 @@
         //   Student::deleteAll();
         // }
 
-        function testgetCourseName()
+        function testGetCourseName()
         {
             //Arrange
             $course_name = "Bio";
@@ -32,7 +32,7 @@
             $this->assertEquals($course_name, $result);
         }
 
-        function testgetCode()
+        function testGetCode()
         {
             //Arrange
             $course_name = "Bio";
@@ -46,5 +46,33 @@
             $this->assertEquals($code, $result);
         }
 
+        function testGetId()
+        {
+            //Arrange
+            $course_name = "Bio";
+            $code = "B101";
+            $test_course = new Course($course_name, $code);
+            $test_course->save();
+
+            //Act
+            $result = $test_course->getId();
+
+            //Assert
+            $this->assertEquals(true, is_numeric($result));
+        }
+
+        function testSave()
+        {
+            //Arrange
+            $course_name = "Bio";
+            $code = "B101";
+            $test_course = new Course($course_name, $code);
+
+            //Act
+            $executed = $test_course->save();
+
+            //Assert
+            $this->assertTrue($executed, "Theres no course in database!!!!");
+        }
     }
 ?>

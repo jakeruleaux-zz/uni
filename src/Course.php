@@ -38,6 +38,17 @@
             return $this->id;
         }
 
+        function save()
+        {
+            $executed = $GLOBALS['DB']->exec("INSERT INTO courses (course_name, code) VALUES ('{$this->getCourseName()}', '{$this->getCode()}');");
+            if ($executed) {
+                $this->id = $GLOBALS['DB']->lastInsertId();
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
     }
  ?>
