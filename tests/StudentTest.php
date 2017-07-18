@@ -25,5 +25,19 @@
             //Assert
             $this->assertEquals($name, $result);
         }
+
+        function testGetEnrollDate()
+        {
+            //Arrange
+            $name = "Nathan";
+            $enroll_date = "7-24-2089";
+            $test_student = new Student($name, $enroll_date);
+
+            //Act
+            $result = $test_student->getEnrollDate();
+
+            //Assert
+            $this->assertEquals($enroll_date, $result);
+        }
     }
 ?>
