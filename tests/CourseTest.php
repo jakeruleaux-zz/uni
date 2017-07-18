@@ -169,5 +169,56 @@
              $this->assertEquals([$test_course_2], Course::getAll());
          }
 
+         function testGetStudents()
+         {
+             //Arrange
+             $course_name = "Bio";
+             $code = "B101";
+             $id = null;
+             $test_course = new Course($course_name, $code, $id);
+             $test_course->save();
+
+             $name = "Nathan";
+             $enroll_date = "12-12-2345";
+             $id = null;
+             $test_student = new Student($name, $enroll_date, $id);
+             $test_student->save();
+
+             $student_name_2 = "Trig";
+             $enroll_date_2 = "12-12-2123";
+             $id_2 = null;
+             $test_student_2 = new Student($student_name_2, $enroll_date_2, $id_2);
+             $test_student_2->save();
+
+             //Act
+             $test_course->addStudent($test_student);
+             $test_course->addStudent($test_student_2);
+
+             //Assert
+             $this->assertEquals($test_course->getStudents(), [$test_student, $test_student_2]);
+         }
+
+         function testAddStudent()
+         {
+             //Arrange
+             $course_name = "Bio";
+             $code = "B101";
+             $id = null;
+             $test_course = new Course($course_name, $code, $id);
+             $test_course->save();
+
+             $name = "Nathan";
+             $enroll_date = "12-12-2345";
+             $id = null;
+             $test_student = new Student($name, $enroll_date, $id);
+             $test_student->save();
+
+             //Act
+             $test_course->addStudent($test_student);
+
+             //Assert
+             $this->assertEquals($test_course->getStudents(), [$test_student]);
+         }
+
     }
 ?>

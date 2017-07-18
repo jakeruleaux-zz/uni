@@ -113,5 +113,32 @@
                 return true;
             }
         }
+
+        function getStudents()
+        {
+            $returned_students = $GLOBALS['DB']->query("SELECT students.* FROM courses
+                JOIN courses_students ON (courses_students.course_id = courses.id)
+                JOIN students ON (students.id = courses_students.student_id)
+                WHERE courses.id = {$this->getId()};");
+            $students = array();
+            foreach ($returned_students as $student) {
+                $student_name = $student['name'];
+                $student_enroll_date = $student['enroll_date'];
+                $id = $student['id'];
+                $new_student = new Student($student_name, $student_enroll_date, $id);
+                array_push($students, $new_student);
+            }
+            return $students;
+        }
+
+        function addStudent($student)
+        {
+            $executed = $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id) VALUES ({$this->getId()}, {$student->getId()});");
+            if ($executed) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
  ?>
