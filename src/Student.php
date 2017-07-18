@@ -71,5 +71,47 @@
                 return false;
             }
         }
+
+        static function find($search_id)
+        {
+            $found_student = null;
+            $returned_students = $GLOBALS['DB']->prepare("SELECT * FROM students WHERE id = :id;");
+            $returned_students->bindParam(':id', $search_id, PDO::PARAM_STR);
+            $returned_students->execute();
+            foreach ($returned_students as $student) {
+                $student_name = $student['name'];
+                $student_enroll_date = $student['enroll_date'];
+                $id = $student['id'];
+                if ($id == $search_id) {
+                    $found_student = new Student($student_name, $student_enroll_date, $id);
+                }
+            }
+            return $found_student;
+        }
+
+        function update($new_name)
+        {
+            $executed = $GLOBALS['DB']->exec("UPDATE students SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            if ($executed) {
+               $this->setName($new_name);
+               return true;
+            } else {
+               return false;
+            }
+        }
+
+        function delete()
+        {
+            $executed = $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
+             if (!$executed) {
+                 return false;
+             }
+             $executed = $GLOBALS['DB']->exec("DELETE FROM courses_students WHERE student_id = {$this->getId()};");
+             if (!$executed) {
+                 return false;
+             } else {
+                 return true;
+             }
+        }
     }
 ?>
