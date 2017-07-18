@@ -113,5 +113,32 @@
                  return true;
              }
         }
+
+        function getCourses()
+        {
+            $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM students
+                JOIN courses_students ON (courses_students.student_id = students.id)
+                JOIN courses ON (courses.id = courses_students.course_id)
+                WHERE students.id = {$this->getId()};");
+            $courses = array();
+            foreach ($returned_courses as $course) {
+                $course_name = $course['course_name'];
+                $course_code = $course['code'];
+                $id = $course['id'];
+                $new_course = new Course($course_name, $course_code, $id);
+                array_push($courses, $new_course);
+            }
+            return $courses;
+        }
+
+        function addCourse($course)
+        {
+            $executed = $GLOBALS['DB']->exec("INSERT INTO courses_students (student_id, course_id) VALUES ({$this->getId()}, {$course->getId()});");
+            if ($executed) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 ?>

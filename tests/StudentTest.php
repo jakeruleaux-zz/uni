@@ -12,7 +12,7 @@
 
     class StudentTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown() 
+        protected function tearDown()
         {
           Student::deleteAll();
         //   Course::deleteAll();
@@ -168,6 +168,55 @@
 
             //Assert
             $this->assertEquals([$test_student_2], Student::getAll());
+        }
+
+        function testGetCourses()
+        {
+            //Arrange
+            $name = "Nathan";
+            $id = null;
+            $test_student = new Student($name, $id);
+            $test_student->save();
+
+            $course_name = "Bio";
+            $code = "B101";
+            $id = null;
+            $test_course = new Course($course_name, $code, $id);
+            $test_course->save();
+
+            $course_name2 = "Trig";
+            $code_2 = "T101";
+            $id_2 = null;
+            $test_course2 = new Course($course_name2, $code_2, $id_2);
+            $test_course2->save();
+
+            //Act
+            $test_student->addCourse($test_course);
+            $test_student->addCourse($test_course2);
+
+            //Assert
+            $this->assertEquals($test_student->getCourses(), [$test_course, $test_course2]);
+        }
+
+        function testAddCourse()
+        {
+            //Arrange
+            $name = "Nathan";
+            $id = null;
+            $test_student = new Student($name, $id);
+            $test_student->save();
+
+            $course_name = "Bio";
+            $code = "B101";
+            $id = null;
+            $test_course = new Course($course_name, $code, $id);
+            $test_course->save();
+
+            //Act
+            $test_student->addCourse($test_course);
+
+            //Assert
+            $this->assertEquals($test_student->getCourses(), [$test_course]);
         }
 
     }
