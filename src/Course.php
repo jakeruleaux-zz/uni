@@ -2,25 +2,25 @@
 
     class Course
     {
-        private $name;
+        private $course_name;
         private $code;
         private $id;
 
-        function __contsruct($name, $code, $id = null)
+        function __construct($course_name, $code, $id = null)
         {
-            $this->name = $name;
+            $this->course_name = $course_name;
             $this->code = $code;
             $this->id = $id;
         }
 
-        function getName()
+        function getCourseName()
         {
-            return $this->name;
+            return $this->course_name;
         }
 
-        function setName($new_name)
+        function setCourseName($new_course_name)
         {
-            $this->name = (string) $new_name;
+            $this->course_name = (string) $new_course_name;
         }
 
         function getCode()
